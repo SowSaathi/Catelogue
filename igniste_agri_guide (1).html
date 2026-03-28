@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Igniste — Buyer Product Catalogue</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,500;0,700;1,300;1,500&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #f0ece2;
+    --surface: #e5e0d4;
+    --card: #faf8f3;
+    --card-open: #ffffff;
+    --border: rgba(80,70,40,0.13);
+    --border-strong: rgba(80,70,40,0.22);
+    --text: #1a1710;
+    --text-body: #2a2518;
+    --text-muted: #4a4230;
+    --text-faint: #7a6e58;
+    --green: #2a6b08;
+    --green-mid: #3d8c12;
+    --green-light: #56a81e;
+    --green-bg: rgba(42,107,8,0.08);
+    --green-bg-strong: rgba(42,107,8,0.14);
+    --fire: #d4620a;
+    --amber: #b07010;
+    --teal: #14806a;
+    --purple: #5a4fc4;
+    --red: #b03030;
+    --pink: #a84060;
+    --gray-green: #5a6848;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.5;
+  }
+
+  /* ── NAVBAR ── */
+  .navbar {
+    position: sticky; top: 0; z-index: 100;
+    background: #181510;
+    padding: 0 40px;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px;
+    border-bottom: 2px solid #3db010;
+  }
+  /* IGNISTE logo — green bold text + fire emoji, matching the brand */
+  .logo-wordmark {
+    font-family: 'DM Sans', sans-serif; font-weight: 800;
+    font-size: 22px; letter-spacing: 2px; color: #3db010;
+    display: flex; align-items: center;
+    text-shadow: 0 0 20px rgba(61,176,16,0.3);
+  }
+  .logo-flame { font-size: 17px; line-height: 1; }
+  .nav-right { display: flex; align-items: center; gap: 12px; }
+  .nav-tag {
+    font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; color: rgba(255,255,255,0.4);
+    padding: 4px 10px; border: 1px solid rgba(255,255,255,0.10); border-radius: 20px;
+  }
+  .nav-cta {
+    font-size: 12px; font-weight: 700; background: #2a6b08; color: white;
+    padding: 7px 16px; border-radius: 8px; border: none; cursor: pointer;
+    letter-spacing: 0.3px; transition: background 0.15s; font-family: 'DM Sans', sans-serif;
+  }
+  .nav-cta:hover { background: #3d8c12; }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 52px 40px 44px;
+    background: linear-gradient(150deg, #18220a 0%, #202e0e 55%, #181e0a 100%);
+    position: relative; overflow: hidden;
+  }
+  .hero-deco {
+    position: absolute; right: 0; top: 0; bottom: 0; width: 50%;
+    background: radial-gradient(ellipse at 80% 40%, rgba(86,168,30,0.10) 0%, transparent 60%),
+      radial-gradient(ellipse at 60% 90%, rgba(212,98,10,0.06) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .hero-bg-word {
+    position: absolute; right: 36px; bottom: -16px;
+    font-family: 'Fraunces', serif; font-size: 130px; font-weight: 700; font-style: italic;
+    color: rgba(255,255,255,0.022); pointer-events: none; line-height: 1; user-select: none;
+  }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 11px; font-weight: 700; letter-spacing: 2.5px;
+    text-transform: uppercase; color: #7ed44a; margin-bottom: 18px;
+  }
+  .hero-eyebrow-dot { width: 5px; height: 5px; border-radius: 50%; background: #d4620a; flex-shrink: 0; }
+  .hero h1 {
+    font-family: 'Fraunces', serif; font-size: clamp(30px, 4vw, 50px);
+    font-weight: 500; color: #f0ebdc; line-height: 1.1; max-width: 580px; margin-bottom: 14px;
+  }
+  .hero h1 em { font-style: italic; color: #8ed45a; }
+  .hero-sub { font-size: 15px; color: rgba(240,235,220,0.50); max-width: 480px; line-height: 1.65; font-weight: 400; }
+  .hero-pills { display: flex; gap: 8px; margin-top: 28px; flex-wrap: wrap; }
+  .hero-pill {
+    font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.11); color: rgba(240,235,220,0.60);
+    background: rgba(255,255,255,0.04);
+  }
+  .hero-pill.hl { background: rgba(42,107,8,0.22); border-color: rgba(86,168,30,0.35); color: #8ed45a; }
+
+  /* ── COMPANY BAND ── */
+  .company-band {
+    background: #fff; border-bottom: 1px solid var(--border);
+    padding: 18px 40px; display: flex; align-items: center; gap: 32px; flex-wrap: wrap;
+  }
+  .cb-logo {
+    display: flex; align-items: center; gap: 7px;
+    border-right: 1px solid var(--border); padding-right: 28px;
+  }
+  .cb-logo-text { font-family: 'DM Sans', sans-serif; font-weight: 800; font-size: 17px; letter-spacing: 2px; color: #2e8c0a; }
+  .cb-flame { font-size: 15px; }
+  .cb-items { display: flex; gap: 28px; flex-wrap: wrap; flex: 1; }
+  .cb-label { font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-faint); margin-bottom: 3px; }
+  .cb-value { font-size: 13px; font-weight: 600; color: var(--text-body); }
+
+  /* ── LAYOUT ── */
+  .layout { display: flex; }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    width: 216px; flex-shrink: 0; padding: 24px 12px;
+    border-right: 1px solid var(--border);
+    position: sticky; top: 60px; height: calc(100vh - 60px); overflow-y: auto;
+    background: var(--card);
+  }
+  .sidebar-label {
+    font-size: 9px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--text-faint); margin-bottom: 10px; padding-left: 8px;
+  }
+  .filter-btn {
+    display: flex; align-items: center; gap: 9px; width: 100%;
+    padding: 9px 10px; background: none; border: none;
+    border-radius: 9px; border-left: 2px solid transparent;
+    color: var(--text-muted); font-family: 'DM Sans', sans-serif;
+    font-size: 13px; font-weight: 500; cursor: pointer; text-align: left;
+    transition: all 0.15s; margin-bottom: 2px;
+  }
+  .filter-btn:hover { background: var(--green-bg); color: var(--green); }
+  .filter-btn.active {
+    background: var(--green-bg-strong); color: var(--green);
+    border-left-color: var(--green); font-weight: 700; padding-left: 9px;
+  }
+  .filter-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .filter-count {
+    margin-left: auto; font-size: 11px; font-weight: 700;
+    background: var(--surface); border-radius: 10px; padding: 1px 8px; color: var(--text-muted);
+  }
+  .filter-btn.active .filter-count { background: var(--green-bg-strong); color: var(--green); }
+  .sidebar-divider { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
+  .sidebar-note {
+    font-size: 11px; color: var(--text-faint); padding: 10px;
+    line-height: 1.7; background: var(--surface); border-radius: 8px; border: 1px solid var(--border);
+  }
+
+  /* ── MAIN ── */
+  .main { flex: 1; padding: 26px 34px; min-width: 0; }
+  .toolbar {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 20px; flex-wrap: wrap; gap: 12px;
+  }
+  .result-count { font-size: 13px; font-weight: 600; color: var(--text-muted); }
+  .result-count strong { color: var(--green); }
+  .search-wrap { position: relative; }
+  .search-wrap svg { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); width: 14px; height: 14px; color: var(--text-faint); pointer-events: none; }
+  .search-input {
+    background: white; border: 1.5px solid var(--border-strong);
+    border-radius: 9px; color: var(--text-body);
+    font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500;
+    padding: 9px 14px 9px 34px; width: 230px; outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .search-input:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(42,107,8,0.10); }
+  .search-input::placeholder { color: var(--text-faint); font-weight: 400; }
+
+  /* ── GRID ── */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
+
+  /* ── CARD ── */
+  .card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: 16px; overflow: hidden;
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s, opacity 0.2s, filter 0.2s;
+    box-shadow: 0 1px 4px rgba(80,70,40,0.06);
+  }
+  .card:hover:not(.card--open) {
+    border-color: var(--border-strong);
+    box-shadow: 0 4px 16px rgba(80,70,40,0.10);
+    transform: translateY(-1px);
+  }
+  .card--open {
+    border-color: var(--green) !important;
+    box-shadow: 0 8px 32px rgba(42,107,8,0.18) !important;
+    background: var(--card-open);
+    transform: none !important;
+    filter: none !important;
+    opacity: 1 !important;
+  }
+  /* dim non-open cards when one is open */
+  .grid--has-open .card:not(.card--open) {
+    opacity: 0.55;
+    filter: saturate(0.5) brightness(0.97);
+  }
+  .grid--has-open .card:not(.card--open):hover {
+    opacity: 0.85; filter: saturate(0.8);
+  }
+
+  .card-head {
+    padding: 16px 48px 16px 16px; cursor: pointer;
+    display: flex; align-items: flex-start; gap: 12px; position: relative;
+  }
+  .card-icon {
+    width: 46px; height: 46px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; flex-shrink: 0;
+    border: 1px solid rgba(0,0,0,0.07);
+  }
+  .card-info { flex: 1; min-width: 0; }
+  .card-name { font-size: 15px; font-weight: 700; color: var(--text); letter-spacing: -0.2px; }
+  .card-sci { font-size: 11.5px; color: var(--text-faint); margin-top: 1px; font-style: italic; font-family: 'Fraunces', serif; font-weight: 300; }
+  .card-row { display: flex; align-items: center; gap: 8px; margin-top: 9px; }
+  .cat-pill {
+    font-size: 10px; padding: 3px 9px; border-radius: 20px;
+    font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;
+  }
+  /* preview only shown when closed */
+  .card-preview {
+    font-size: 12px; color: var(--text-muted); margin-top: 9px;
+    line-height: 1.55; display: -webkit-box;
+    -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    font-weight: 400;
+  }
+  .card--open .card-preview { display: none; }
+
+  .toggle-btn {
+    position: absolute; top: 16px; right: 14px;
+    width: 26px; height: 26px; border-radius: 50%;
+    background: var(--surface); border: 1.5px solid var(--border-strong);
+    color: var(--text-muted); font-size: 18px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s; line-height: 1; font-weight: 300;
+    font-family: system-ui, sans-serif;
+  }
+  .card--open .toggle-btn { background: var(--green); border-color: var(--green); color: white; }
+
+  /* ── BODY ── */
+  .card-body { display: none; border-top: 1.5px solid var(--border); }
+  .card-body.open { display: block; }
+  .body-inner { padding: 18px 16px; }
+
+  .sec-label {
+    font-size: 9px; text-transform: uppercase; letter-spacing: 2px;
+    color: var(--text-faint); margin-bottom: 8px; font-weight: 800;
+    display: flex; align-items: center; gap: 7px;
+  }
+  .sec-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  .overview-text { font-size: 13px; color: var(--text-body); line-height: 1.65; font-weight: 400; margin-bottom: 16px; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+
+  /* uses as tag pills */
+  .tags { display: flex; flex-wrap: wrap; gap: 5px; }
+  .tag {
+    font-size: 11px; padding: 4px 10px; border-radius: 7px;
+    border: 1px solid var(--border-strong); color: var(--text-muted);
+    background: var(--surface); font-weight: 600;
+  }
+
+  /* specs as small tiles */
+  .spec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .spec-tile {
+    background: var(--surface); border-radius: 9px;
+    padding: 9px 11px; border: 1px solid var(--border);
+  }
+  .spec-key { font-size: 9.5px; font-weight: 700; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 3px; }
+  .spec-val { font-size: 13px; font-weight: 700; color: var(--text); }
+
+  /* value-add rows */
+  .va-list { display: flex; flex-direction: column; gap: 5px; }
+  .va-row {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 12.5px; color: var(--text-body); font-weight: 600;
+    background: var(--green-bg); border-radius: 8px;
+    padding: 7px 10px; border: 1px solid rgba(42,107,8,0.12);
+  }
+  .va-arrow { color: var(--green); font-size: 13px; flex-shrink: 0; }
+
+  /* ── EMPTY ── */
+  .empty { text-align: center; padding: 80px 20px; color: var(--text-faint); font-size: 14px; }
+  .empty-icon { font-size: 44px; margin-bottom: 14px; }
+
+  @media (max-width: 720px) {
+    .hero, .navbar, .company-band { padding-left: 20px; padding-right: 20px; }
+    .layout { flex-direction: column; }
+    .sidebar { width: 100%; position: static; height: auto; max-height: none; border-right: none; border-bottom: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 6px; padding: 14px; }
+    .sidebar-label, .sidebar-divider, .sidebar-note { display: none; }
+    .filter-btn { width: auto; flex: none; }
+    .main { padding: 14px; }
+    .search-input { width: 100%; }
+    .two-col { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="logo-wordmark">IGN<span class="logo-flame">🔥</span>STE</div>
+  <div class="nav-right">
+    <span class="nav-tag">Buyer Catalogue</span>
+    <button class="nav-cta">Enquire Now</button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-deco"></div>
+  <div class="hero-bg-word">Agri</div>
+  <div class="hero-eyebrow"><span class="hero-eyebrow-dot"></span>Igniste Private Limited</div>
+  <h1>Premium Agri<br/><em>Commodities</em> Catalogue</h1>
+  <p class="hero-sub">Connecting farmers, suppliers and global buyers. Organic &amp; conventional — sourced, verified, supply-ready.</p>
+  <div class="hero-pills">
+    <div class="hero-pill hl">14 Products</div>
+    <div class="hero-pill">6 Categories</div>
+    <div class="hero-pill">8+ Export Markets</div>
+    <div class="hero-pill">APEDA · FSSAI · EU Compliant</div>
+  </div>
+</div>
+
+<div class="company-band">
+  <div class="cb-logo">
+    <span class="cb-flame">🔥</span>
+    <span class="cb-logo-text">IGNISTE</span>
+  </div>
+  <div class="cb-items">
+    <div><div class="cb-label">Type</div><div class="cb-value">Agri-Commodities Trading & Supply</div></div>
+    <div><div class="cb-label">Range</div><div class="cb-value">Organic & Conventional</div></div>
+    <div><div class="cb-label">Model</div><div class="cb-value">Farm-to-Buyer Direct</div></div>
+    <div><div class="cb-label">Standards</div><div class="cb-value">APEDA · FSSAI · EU 396/2005</div></div>
+  </div>
+</div>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sidebar-label">Categories</div>
+    <div id="sidebar-filters"></div>
+    <hr class="sidebar-divider"/>
+    <p class="sidebar-note">Click a card to expand specs. One card opens at a time.</p>
+  </aside>
+  <main class="main">
+    <div class="toolbar">
+      <div class="result-count" id="result-count"></div>
+      <div class="search-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input class="search-input" type="text" placeholder="Search products…" id="search-input" oninput="renderGrid()"/>
+      </div>
+    </div>
+    <div class="grid" id="grid"></div>
+    <div class="empty" id="empty" style="display:none">
+      <div class="empty-icon">🌱</div>No products match your search.
+    </div>
+  </main>
+</div>
+
+<script>
+const products = [
+  {
+    name:"Black Turmeric", sci:"Curcuma caesia", cat:"Spices & Roots", icon:"🌿",
+    color:"#2a6b08", bgColor:"rgba(42,107,8,0.09)", catColor:"rgba(42,107,8,0.13)", catText:"#1a4e07",
+    desc:"Rare bluish-black rhizome from NE India & Odisha. 5–8× price premium over yellow turmeric due to very limited cultivation and high medicinal alkaloid content.",
+    uses:["Ayurvedic & tribal medicine","Essential oil extraction","Nutraceutical supplements","Pharmaceutical R&D"],
+    specs:[["Moisture","≤ 10%"],["Curcuminoids","≥ 2% pharma"],["Aflatoxin B1","≤ 5 ppb EU"],["Certifications","Organic · Phytosanitary"]],
+    valueAdd:["Cold-press essential oil — 10× value","Encapsulated extract powder","Curcuminoid concentrate"]
+  },
+  {
+    name:"Black Ginger", sci:"Kaempferia parviflora", cat:"Spices & Roots", icon:"🫚",
+    color:"#2a6b08", bgColor:"rgba(42,107,8,0.09)", catColor:"rgba(42,107,8,0.13)", catText:"#1a4e07",
+    desc:"Thai ginseng — dark rhizome with high polymethoxyflavone content. Rising demand in sports nutrition & wellness globally. Rare in Indian markets.",
+    uses:["Herbal supplement capsules","Energy & sports nutrition","Wellness formulations","Cosmetic anti-aging actives"],
+    specs:[["Moisture","≤ 12%"],["Polymethoxyflavones","≥ 0.5%"],["Aflatoxin","≤ 10 ppb"],["Certifications","Phytosanitary · FSSAI"]],
+    valueAdd:["Standardized extract powder","Capsule OEM supply","Cosmetic active ingredient"]
+  },
+  {
+    name:"Normal Ginger", sci:"Zingiber officinale", cat:"Spices & Roots", icon:"🫚",
+    color:"#b07010", bgColor:"rgba(176,112,16,0.09)", catColor:"rgba(176,112,16,0.13)", catText:"#7a4e0a",
+    desc:"World's most traded spice rhizome. India is the #1 global producer. Dry ginger and oleoresin are the highest-value export forms with established trade channels.",
+    uses:["Dry ginger powder","Ginger oil & oleoresin","Beverages & food processing","Pharma — anti-nausea, digestive"],
+    specs:[["Moisture (dry)","≤ 10%"],["Volatile oil","≥ 1.5%"],["Gingerol (pharma)","≥ 0.8%"],["Certifications","APEDA · Organic avail."]],
+    valueAdd:["Dry ginger powder — 3× value","Oleoresin — 10–15× value","Essential oil · CO2 extract"]
+  },
+  {
+    name:"Yellow Turmeric", sci:"Curcuma longa", cat:"Spices & Roots", icon:"🌾",
+    color:"#b07010", bgColor:"rgba(176,112,16,0.09)", catColor:"rgba(176,112,16,0.13)", catText:"#7a4e0a",
+    desc:"India's most exported spice — supplies ~80% of global demand. Curcumin drives value across food, pharma, and cosmetics. Well-established APEDA export infrastructure.",
+    uses:["Curcumin extraction — pharma","Food coloring & curry powder","Cosmetic formulations","Nutritional supplements"],
+    specs:[["Curcumin","≥3% food · ≥5% pharma"],["Aflatoxin B1","≤ 5 ppb EU"],["Moisture","≤ 10%"],["Certifications","APEDA · Organic · FSSAI"]],
+    valueAdd:["Curcumin 95% extract — 20× value","Turmeric oleoresin","Cosmetic grade powder"]
+  },
+  {
+    name:"Coffee Bean", sci:"Coffea arabica / robusta", cat:"Beverages", icon:"☕",
+    color:"#5a6848", bgColor:"rgba(90,104,72,0.09)", catColor:"rgba(90,104,72,0.13)", catText:"#354020",
+    desc:"Indian green or roasted coffee — premium Arabica (Araku, Coorg) and commercial Robusta. Specialty grades command 3–5× premium. Strong EU, USA & Japan demand.",
+    uses:["Single-origin specialty roast","Instant coffee manufacturing","Cold brew concentrate","Coffee extract & oil"],
+    specs:[["Moisture","10–12.5%"],["Ochratoxin A","≤ 10 ppb EU"],["Aflatoxin","≤ 10 ppb"],["Certifications","Fair Trade · Organic · RA"]],
+    valueAdd:["Specialty SCA grade ≥80 score","Cold brew concentrate","Roasted single-origin bags"]
+  },
+  {
+    name:"Coffee Parchment", sci:"Coffee husk / silverskin", cat:"Beverages", icon:"🌿",
+    color:"#5a6848", bgColor:"rgba(90,104,72,0.09)", catColor:"rgba(90,104,72,0.13)", catText:"#354020",
+    desc:"Husk from wet-milled green beans. Rich in polyphenols. Premium cascara tea is a high-growth opportunity. Often wasted — strong value-conversion potential.",
+    uses:["Cascara / coffee-cherry tea","Biomass fuel briquettes","Organic fertilizer","Mushroom substrate"],
+    specs:[["Moisture","≤ 12%"],["Mold / fungal","Zero tolerance"],["Cascara grade","Sun-dried, aromatic"],["Certifications","Organic for cascara"]],
+    valueAdd:["Cascara dried tea — 8–10× value","Biochar for soil carbon","Mushroom grow substrate"]
+  },
+  {
+    name:"Coconut (250–350gm)", sci:"Cocos nucifera", cat:"Fresh Produce", icon:"🥥",
+    color:"#14806a", bgColor:"rgba(20,128,106,0.09)", catColor:"rgba(20,128,106,0.13)", catText:"#0a5a48",
+    desc:"Medium-sized coconut — every part has commercial value. VCO market growing fast in EU & US health channels. India is the 3rd largest global producer.",
+    uses:["Virgin Coconut Oil (VCO)","Desiccated coconut & milk","Coconut water — fresh","Coir fiber & cosmetics"],
+    specs:[["VCO Free Fatty Acid","≤ 0.5%"],["Aflatoxin (copra)","≤ 10 ppb"],["Kernel weight","≥ 250gm"],["Certifications","APEDA · Organic preferred"]],
+    valueAdd:["Virgin Coconut Oil — 4–5× value","Coconut milk powder","Activated charcoal from shell"]
+  },
+  {
+    name:"Watermelon", sci:"Citrullus lanatus", cat:"Fresh Produce", icon:"🍉",
+    color:"#b03030", bgColor:"rgba(176,48,48,0.09)", catColor:"rgba(176,48,48,0.13)", catText:"#7a1a1a",
+    desc:"High-sugar summer fruit. Watermelon seeds are a strong year-round product for snacking, oil extraction, and nutraceuticals. Good Gulf & EU export potential.",
+    uses:["Fresh Gulf market export","Seed snacks (roasted)","Seed oil extraction","Nutraceutical seed extract"],
+    specs:[["Brix","≥ 10° export grade"],["Seed moisture","≤ 8%"],["Cold chain","2–10°C fresh"],["Certifications","Phytosanitary mandatory"]],
+    valueAdd:["Cold-press watermelon seed oil","Seed protein powder","Fresh-cut retail packs"]
+  },
+  {
+    name:"Musk Melon", sci:"Cucumis melo var. reticulatus", cat:"Fresh Produce", icon:"🍈",
+    color:"#14806a", bgColor:"rgba(20,128,106,0.09)", catColor:"rgba(20,128,106,0.13)", catText:"#0a5a48",
+    desc:"Aromatic summer fruit high in Vitamin A & C. Seeds ('Magaz') are prized in Unani/Ayurveda. Premium export grade for Gulf markets; frozen pulp growing in demand.",
+    uses:["Fresh Gulf export","Magaz seeds — Unani/Ayurveda","Seed oil extraction","Frozen pulp for beverages"],
+    specs:[["Brix","≥ 12° export grade"],["Seed moisture","≤ 8%"],["Cold chain","4–8°C fresh"],["Certifications","Phytosanitary mandatory"]],
+    valueAdd:["Magaz premium health seed pack","Cold-pressed seed oil","Frozen pulp concentrate"]
+  },
+  {
+    name:"Black Rice — Chak-hao", sci:"Oryza sativa (pigmented)", cat:"Grains & Rice", icon:"🌾",
+    color:"#5a4fc4", bgColor:"rgba(90,79,196,0.09)", catColor:"rgba(90,79,196,0.13)", catText:"#342fa0",
+    desc:"GI-tagged aromatic black rice from Manipur. Exceptionally high anthocyanins — 5–8× price premium. Strong demand from pharma, cosmetics, and premium food globally.",
+    uses:["Premium health food grain","Anthocyanin extraction","Natural food colorant","Specialty brewing"],
+    specs:[["Anthocyanin","≥200 mg/100g pharma"],["Broken grains","≤ 5% premium"],["GI certification","Mandatory for brand"],["Certifications","APEDA · GI Tag · Organic"]],
+    valueAdd:["Anthocyanin extract — 20–30× value","Black rice protein powder","Artisan wine / craft beer"]
+  },
+  {
+    name:"Tamarind (Imli)", sci:"Tamarindus indica", cat:"Processed Goods", icon:"🌿",
+    color:"#b07010", bgColor:"rgba(176,112,16,0.09)", catColor:"rgba(176,112,16,0.13)", catText:"#7a4e0a",
+    desc:"India is the world's largest producer. Pulp, seed and kernel all have independent commercial value — food, textile, and industrial buyers all active globally.",
+    uses:["Food processing — sauces & chutneys","Tamarind concentrate & paste","Textile sizing (kernel powder)","Pharma — digestive / laxative"],
+    specs:[["Tartaric acid","≥ 14% food grade"],["Moisture (pulp)","≤ 20%"],["Aflatoxin","≤ 10 ppb"],["Certifications","APEDA · FSSAI · Halal"]],
+    valueAdd:["Deseeded pulp block — higher price","Tamarind concentrate paste","Kernel powder — textile use"]
+  },
+  {
+    name:"Strawberry", sci:"Fragaria × ananassa", cat:"Fresh Produce", icon:"🍓",
+    color:"#a84060", bgColor:"rgba(168,64,96,0.09)", catColor:"rgba(168,64,96,0.13)", catText:"#702040",
+    desc:"High-value fruit from Mahabaleshwar & Himachal. IQF (Individually Quick Frozen) is the dominant export form — eliminates cold-chain risk entirely for global buyers.",
+    uses:["IQF frozen export — EU & Gulf","Jam & preserve manufacturing","Cosmetic / skincare actives","Freeze-dried powder — nutraceuticals"],
+    specs:[["Brix","≥ 7° fresh"],["Size","≥ 25mm export"],["IQF storage","-18°C throughout"],["Certifications","GlobalGAP · Organic preferred"]],
+    valueAdd:["IQF frozen — 2–3× value","Freeze-dried powder — 10–12×","Strawberry extract for cosmetics"]
+  },
+  {
+    name:"Turmeric Mother Rhizome", sci:"Curcuma longa — seed material", cat:"Planting Material", icon:"🌱",
+    color:"#2a6b08", bgColor:"rgba(42,107,8,0.09)", catColor:"rgba(42,107,8,0.13)", catText:"#1a4e07",
+    desc:"Carefully selected mother rhizomes from turmeric harvest for next-season planting. High demand from cooperatives and farmers scaling turmeric production.",
+    uses:["Planting material for farmers","Cooperative & bulk seed supply","Export to growing regions","Organic certified seed banks"],
+    specs:[["Disease-free","Zero rot — mandatory"],["Rhizome size","≥ 25–35g per finger"],["Moisture","≤ 80% fresh"],["Certifications","Phytosanitary · Organic cert"]],
+    valueAdd:["Certified organic seed rhizome","Packaged commercial seed sets","Bulk cooperative supply"]
+  },
+  {
+    name:"Black Pepper", sci:"Piper nigrum", cat:"Spices & Roots", icon:"🌶️",
+    color:"#5a6848", bgColor:"rgba(90,104,72,0.09)", catColor:"rgba(90,104,72,0.13)", catText:"#354020",
+    desc:"The 'King of Spices'. India is a top global exporter. Piperine enhances bioavailability of other compounds — critical in pharma supplement formulations worldwide.",
+    uses:["Whole / ground spice export","Piperine extraction — pharma","Black pepper essential oil","Bioavailability enhancer"],
+    specs:[["Piperine","≥4% food · 95% pharma"],["Volatile oil","≥ 2% whole"],["Aflatoxin","≤ 10 ppb"],["Certifications","APEDA · Spice Board · Organic"]],
+    valueAdd:["Piperine 95% extract — 15–20×","Black pepper essential oil","Oleoresin for food industry"]
+  }
+];
+
+const cats = [
+  { id:"All", label:"All Products", color:"#2a6b08" },
+  { id:"Spices & Roots", label:"Spices & Roots", color:"#2a6b08" },
+  { id:"Beverages", label:"Beverages", color:"#5a6848" },
+  { id:"Fresh Produce", label:"Fresh Produce", color:"#14806a" },
+  { id:"Grains & Rice", label:"Grains & Rice", color:"#5a4fc4" },
+  { id:"Processed Goods", label:"Processed Goods", color:"#b07010" },
+  { id:"Planting Material", label:"Planting Material", color:"#2a6b08" }
+];
+
+let activeFilter = "All";
+let openCardId = null;
+
+function getCatCount(catId) {
+  if (catId === "All") return products.length;
+  return products.filter(p => p.cat === catId).length;
+}
+
+function buildSidebar() {
+  const container = document.getElementById("sidebar-filters");
+  cats.forEach(c => {
+    const btn = document.createElement("button");
+    btn.className = "filter-btn" + (c.id === "All" ? " active" : "");
+    btn.innerHTML = `<span class="filter-dot" style="background:${c.color}"></span><span>${c.label}</span><span class="filter-count">${getCatCount(c.id)}</span>`;
+    btn.onclick = () => {
+      activeFilter = c.id; openCardId = null;
+      document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active"); renderGrid();
+    };
+    container.appendChild(btn);
+  });
+}
+
+function renderGrid() {
+  const query = document.getElementById("search-input").value.toLowerCase().trim();
+  const grid = document.getElementById("grid");
+  const emptyEl = document.getElementById("empty");
+  const countEl = document.getElementById("result-count");
+
+  const filtered = products.filter(p => {
+    const catMatch = activeFilter === "All" || p.cat === activeFilter;
+    const searchMatch = !query || p.name.toLowerCase().includes(query) || p.cat.toLowerCase().includes(query) || p.sci.toLowerCase().includes(query) || p.desc.toLowerCase().includes(query) || p.uses.some(u => u.toLowerCase().includes(query));
+    return catMatch && searchMatch;
+  });
+
+  countEl.innerHTML = `<strong>${filtered.length}</strong> product${filtered.length!==1?'s':''}`;
+
+  if (filtered.length === 0) { grid.innerHTML = ""; emptyEl.style.display = "block"; return; }
+  emptyEl.style.display = "none";
+
+  const hasOpen = openCardId && filtered.some(p => ("card-"+products.indexOf(p)) === openCardId);
+  grid.className = "grid" + (hasOpen ? " grid--has-open" : "");
+
+  grid.innerHTML = filtered.map(p => {
+    const id = "card-" + products.indexOf(p);
+    const isOpen = openCardId === id;
+    return `
+    <div class="card${isOpen?" card--open":""}" id="${id}">
+      <div class="card-head" onclick="toggleCard('${id}')">
+        <div class="card-icon" style="background:${p.bgColor}">${p.icon}</div>
+        <div class="card-info">
+          <div class="card-name">${p.name}</div>
+          <div class="card-sci">${p.sci}</div>
+          <div class="card-row"><span class="cat-pill" style="background:${p.catColor};color:${p.catText}">${p.cat}</span></div>
+          <div class="card-preview">${p.desc}</div>
+        </div>
+        <button class="toggle-btn">${isOpen?"−":"+"}</button>
+      </div>
+      <div class="card-body${isOpen?" open":""}">
+        <div class="body-inner">
+          <div class="sec-label">Overview</div>
+          <div class="overview-text">${p.desc}</div>
+          <div class="two-col">
+            <div>
+              <div class="sec-label">Key Uses</div>
+              <div class="tags">${p.uses.map(u=>`<span class="tag">${u}</span>`).join("")}</div>
+            </div>
+            <div>
+              <div class="sec-label">Value-Add Opportunities</div>
+              <div class="va-list">${p.valueAdd.map(v=>`<div class="va-row"><span class="va-arrow">↗</span><span>${v}</span></div>`).join("")}</div>
+            </div>
+          </div>
+          <div class="sec-label" style="margin-top:14px">Specifications</div>
+          <div class="spec-grid">${p.specs.map(([k,v])=>`<div class="spec-tile"><div class="spec-key">${k}</div><div class="spec-val">${v}</div></div>`).join("")}</div>
+        </div>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+function toggleCard(id) {
+  openCardId = openCardId === id ? null : id;
+  renderGrid();
+  if (openCardId) { setTimeout(()=>{ const el=document.getElementById(openCardId); if(el) el.scrollIntoView({behavior:'smooth',block:'nearest'}); },60); }
+}
+
+buildSidebar(); renderGrid();
+</script>
+</body>
+</html>
