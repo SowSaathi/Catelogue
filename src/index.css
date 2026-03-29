@@ -483,6 +483,33 @@ h1, h2, h3 {
   display: none;
 }
 
+/* Mobile Nav Toggle */
+.nav-toggle {
+  display: none;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  transition: var(--transition);
+  flex-shrink: 0;
+}
+
+.nav-toggle:hover {
+  background: var(--card);
+  border-color: var(--primary);
+}
+
+/* Mobile Category Chips (horizontal scroll) */
+.mobile-categories {
+  display: none;
+}
+
 /* Admin Portal */
 .admin-portal {
   padding: 60px 5%;
@@ -596,6 +623,386 @@ h1, h2, h3 {
   border: 1px solid var(--border);
 }
 
+/* =====================================================
+   MOBILE RESPONSIVE — max-width: 768px
+   ===================================================== */
+@media (max-width: 768px) {
+
+  /* ---- Navbar ---- */
+  .navbar {
+    height: auto;
+    padding: 12px 16px;
+    flex-wrap: wrap;
+    gap: 0;
+  }
+
+  .logo-img {
+    height: 36px;
+  }
+
+  .logo-text {
+    font-size: 20px;
+    letter-spacing: 2px;
+  }
+
+  .nav-toggle {
+    display: flex;
+  }
+
+  .nav-right {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    margin-top: 12px;
+  }
+
+  .nav-right.open {
+    display: flex;
+  }
+
+  .contact-quick {
+    margin-right: 0;
+    text-align: left;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .nav-cta {
+    width: 100%;
+    text-align: center;
+    padding: 12px 16px;
+    font-size: 14px;
+  }
+
+  .nav-cta.secondary {
+    margin-right: 0;
+  }
+
+  /* ---- Hero ---- */
+  .hero {
+    padding: 60px 16px 40px;
+  }
+
+  .hero h1 {
+    font-size: 32px;
+    margin-bottom: 16px;
+  }
+
+  .hero p {
+    font-size: 15px;
+    margin-bottom: 24px;
+  }
+
+  .hero-eyebrow {
+    font-size: 10px;
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+  }
+
+  .search-input {
+    padding: 14px 20px;
+    border-radius: 16px;
+    font-size: 14px;
+    max-width: 100%;
+  }
+
+  /* ---- Company Band ---- */
+  .company-band {
+    padding: 20px 16px;
+    gap: 16px;
+    margin-bottom: 24px;
+    flex-direction: column;
+  }
+
+  .cb-item {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .cb-item:last-child {
+    border-bottom: none;
+  }
+
+  .cb-label {
+    font-size: 9px;
+  }
+
+  .cb-value {
+    font-size: 13px;
+    text-align: right;
+  }
+
+  /* ---- Layout: Stack sidebar above grid ---- */
+  .app-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 0 16px 60px;
+  }
+
+  /* ---- Sidebar → Hidden on mobile, replaced by chips ---- */
+  .sidebar {
+    display: none;
+    position: static;
+  }
+
+  /* ---- Mobile Category Chips ---- */
+  .mobile-categories {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 0 16px 20px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .mobile-categories::-webkit-scrollbar {
+    display: none;
+  }
+
+  .mobile-chip {
+    flex-shrink: 0;
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 10px 18px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    white-space: nowrap;
+    font-family: inherit;
+  }
+
+  .mobile-chip:hover {
+    border-color: var(--primary);
+  }
+
+  .mobile-chip.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+    font-weight: 700;
+    box-shadow: 0 4px 12px var(--primary-glow);
+  }
+
+  /* ---- Product Grid ---- */
+  .product-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .card {
+    padding: 22px;
+    border-radius: 18px;
+  }
+
+  .card:hover {
+    transform: none;
+  }
+
+  .card-icon {
+    font-size: 32px;
+    margin-bottom: 14px;
+  }
+
+  .card-title {
+    font-size: 20px;
+    margin-bottom: 6px;
+  }
+
+  .card-sci {
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
+
+  .card-desc {
+    font-size: 13px;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+  }
+
+  .card-badges {
+    margin-top: 12px;
+  }
+
+  .badge {
+    font-size: 10px;
+    padding: 3px 10px;
+  }
+
+  /* ---- Modal ---- */
+  .overlay {
+    padding: 0;
+    align-items: flex-end;
+  }
+
+  .modal {
+    border-radius: 24px 24px 0 0;
+    max-height: 92vh;
+    padding: 28px 20px 40px;
+    max-width: 100%;
+    animation: slideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes slideUp {
+    from { transform: translateY(100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .close-btn {
+    top: 16px;
+    right: 16px;
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
+  }
+
+  .modal-header {
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .modal-icon {
+    font-size: 44px;
+  }
+
+  .modal-header h2 {
+    font-size: 22px;
+  }
+
+  .modal-content {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .modal-section h4 {
+    font-size: 12px;
+    margin-bottom: 12px;
+  }
+
+  .modal-section p {
+    font-size: 14px;
+  }
+
+  .spec-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .spec-item {
+    padding: 10px 12px;
+    border-radius: 10px;
+  }
+
+  .spec-label {
+    font-size: 9px;
+  }
+
+  .spec-value {
+    font-size: 13px;
+  }
+
+  .modal-list li {
+    font-size: 14px;
+    margin-bottom: 8px;
+    gap: 8px;
+  }
+
+  .modal-footer {
+    margin-top: 28px;
+  }
+
+  .modal-footer .nav-cta {
+    width: 100%;
+    padding: 14px;
+    font-size: 15px;
+  }
+
+  /* ---- No Results ---- */
+  .no-results {
+    padding: 60px 0;
+  }
+
+  .no-results-icon {
+    font-size: 50px;
+  }
+
+  /* ---- Footer ---- */
+  .footer {
+    padding: 40px 16px;
+    font-size: 12px;
+  }
+
+  /* ---- Admin Portal ---- */
+  .admin-portal {
+    padding: 30px 16px;
+  }
+
+  .admin-header {
+    margin-bottom: 30px;
+  }
+
+  .admin-header h2 {
+    font-size: 28px;
+  }
+
+  .admin-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .admin-form {
+    padding: 20px;
+    gap: 16px;
+  }
+
+  .active-preview {
+    transform: none;
+  }
+
+  .json-box {
+    max-height: 200px;
+    font-size: 10px;
+  }
+}
+
+/* Small phones */
+@media (max-width: 380px) {
+  .hero h1 {
+    font-size: 26px;
+  }
+
+  .card {
+    padding: 18px;
+  }
+
+  .card-title {
+    font-size: 18px;
+  }
+
+  .modal {
+    padding: 24px 16px 36px;
+  }
+
+  .spec-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .mobile-chip {
+    padding: 8px 14px;
+    font-size: 12px;
+  }
+}
+
 @media print {
   @page {
     size: A4;
@@ -614,7 +1021,9 @@ h1, h2, h3 {
   .nav-cta,
   .close-btn,
   .modal-footer,
-  .sidebar h3 {
+  .sidebar h3,
+  .nav-toggle,
+  .mobile-categories {
     display: none !important;
   }
 
@@ -672,11 +1081,6 @@ h1, h2, h3 {
     line-clamp: unset !important;
   }
 
-  /* Force display full details in print? 
-     Alternatively, we can create a hidden print-only section 
-     that lists all products with full specs. 
-  */
-  
   .footer {
     position: running(footer);
     font-size: 8pt;

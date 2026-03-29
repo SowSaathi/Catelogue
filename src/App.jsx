@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { products, categories } from './data/products';
 import logo from './assets/logo.png';
 import Fuse from 'fuse.js';
@@ -9,6 +9,16 @@ const App = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isAdminMode, setIsAdminMode] = useState(false);
+  const [navOpen, setNavOpen] = useState(false);
+
+  // Close mobile nav on resize to desktop
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 768) setNavOpen(false);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Form State for Admin
   const [form, setForm] = useState({
@@ -62,16 +72,19 @@ const App = () => {
           <img src={logo} alt="Igniste Logo" className="logo-img" />
           <div className="logo-text">IGN<span>🔥</span>STE</div>
         </div>
-        <div className="nav-right">
+        <button className="nav-toggle" onClick={() => setNavOpen(!navOpen)} aria-label="Toggle menu">
+          {navOpen ? '✕' : '☰'}
+        </button>
+        <div className={`nav-right ${navOpen ? 'open' : ''}`}>
           <div className="contact-quick">
             <span className="contact-label">Quick Contact:</span>
             <span className="contact-number">+91 8252668227</span>
           </div>
-          <button className="nav-cta secondary" onClick={() => setIsAdminMode(!isAdminMode)}>
+          <button className="nav-cta secondary" onClick={() => { setIsAdminMode(!isAdminMode); setNavOpen(false); }}>
             {isAdminMode ? 'View Catalogue' : 'Manage Products'}
           </button>
-          {!isAdminMode && <button className="nav-cta secondary" onClick={handleDownload}>Download Catalogue</button>}
-          <button className="nav-cta" onClick={() => handleEnquiry()}>Enquire Now</button>
+          {!isAdminMode && <button className="nav-cta secondary" onClick={() => { handleDownload(); setNavOpen(false); }}>Download Catalogue</button>}
+          <button className="nav-cta" onClick={() => { handleEnquiry(); setNavOpen(false); }}>Enquire Now</button>
         </div>
       </nav>
 
@@ -196,6 +209,19 @@ const App = () => {
               <span className="cb-value">APEDA · FSSAI · EU 396/2005</span>
             </div>
           </section>
+
+          {/* Mobile horizontal category chips */}
+          <div className="mobile-categories">
+            {categories.map(cat => (
+              <button
+                key={cat.id}
+                className={`mobile-chip ${activeCategory === cat.id ? 'active' : ''}`}
+                onClick={() => setActiveCategory(cat.id)}
+              >
+                {cat.label}
+              </button>
+            ))}
+          </div>
 
           <div className="app-container">
             <aside className="sidebar">
