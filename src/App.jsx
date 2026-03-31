@@ -24,8 +24,9 @@ const App = () => {
   const [form, setForm] = useState({
     name: '',
     sci: '',
+    region: '',
     desc: '',
-    cat: 'Organic',
+    cat: 'Spices & Roots',
     icon: '🌿',
     specs: [['Origin', ''], ['Quality', '']],
     uses: [''],
@@ -106,6 +107,10 @@ const App = () => {
                 <input type="text" value={form.sci} onChange={e => setForm({...form, sci: e.target.value})} placeholder="e.g. Crocus sativus" />
               </div>
               <div className="form-group">
+                <label>Region / Origin</label>
+                <input type="text" value={form.region} onChange={e => setForm({...form, region: e.target.value})} placeholder="e.g. Kashmir, India" />
+              </div>
+              <div className="form-group">
                 <label>Category</label>
                 <select value={form.cat} onChange={e => setForm({...form, cat: e.target.value})}>
                   {categories.slice(1).map(c => <option key={c.id} value={c.id}>{c.label}</option>)}
@@ -157,6 +162,9 @@ const App = () => {
               <div className="card active-preview">
                 <span className="card-icon">{form.icon}</span>
                 <h3 className="card-title">{form.name || 'Product' }</h3>
+                <div className="card-region-box">
+                  <span className="card-region">{form.region || 'Region'}</span>
+                </div>
                 <p className="card-sci">{form.sci || 'Scientific'}</p>
                 <p className="card-desc">{form.desc || 'Description will appear here...'}</p>
                 <div className="card-badges">
@@ -252,6 +260,9 @@ const App = () => {
                   >
                     <span className="card-icon">{product.icon}</span>
                     <h3 className="card-title">{product.name}</h3>
+                    <div className="card-region-box">
+                      <span className="card-region">{product.region}</span>
+                    </div>
                     <p className="card-sci">{product.sci}</p>
                     <p className="card-desc">{product.desc}</p>
                     <div className="card-badges">
@@ -278,6 +289,7 @@ const App = () => {
                   <span className="modal-icon">{selectedProduct.icon}</span>
                   <div>
                     <h2>{selectedProduct.name}</h2>
+                    <div className="modal-region-badge">{selectedProduct.region}</div>
                     <p className="card-sci">{selectedProduct.sci}</p>
                   </div>
                 </div>
@@ -341,7 +353,7 @@ const App = () => {
         </div>
         {products.map((p, i) => (
           <div key={i} className="print-product">
-            <h2>{p.name} ({p.sci})</h2>
+            <h2>{p.name} ({p.sci}) — {p.region}</h2>
             <p className="print-desc">{p.desc}</p>
             <div className="print-specs">
               {p.specs.map(([k, v], j) => (
